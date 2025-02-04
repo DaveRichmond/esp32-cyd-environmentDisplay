@@ -45,6 +45,8 @@ void env_task(void *params){
 
             Serial.println(String("Temperatures: bmp:") + String(env.temperature) + String(" aht:") + String(aht_temp.temperature));
             xSemaphoreGive(env_mutex);
+        } else {
+            Serial.println("Failed to get mutex");
         }
         
         if(env.valid){
@@ -57,9 +59,7 @@ void env_task(void *params){
             // Serial.println(" Pa");
 
             // Serial.println();
-        } else {
-            Serial.println("Failed to get mutex");
-        }
+        } 
         
         vTaskDelay(100 * portTICK_PERIOD_MS);
     }
